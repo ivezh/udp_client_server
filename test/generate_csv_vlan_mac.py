@@ -5,7 +5,7 @@ def random_mac():
 
 seen = set()
 count = 10000
-target_file = f"../server/vlan_mac_{count}.csv"
+target_file = f"../server/vlan_mac.csv"
 
 with open(target_file, "w") as f:
     i = 0

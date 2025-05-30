@@ -12,7 +12,7 @@
 
 #define REQUEST_LEN 6 //defines how many digits in mumber from client can be recieved
 #define LINE_LEN 27 //length of line with vlan_id-mac pair
-#define CSV_FILE_NAME "vlan_mac_10000.csv"
+#define CSV_FILE_NAME "vlan_mac.csv"
 #define PACK_SIZE 40 //amount of vlan_id-mac pairs in one 'sendto' call
 
 
