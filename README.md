@@ -1,4 +1,3 @@
-# README.md  
 **Проект: UDP-сервер для работы с VLAN-MAC таблицей**  
 *(Work in progress!)*  
 ---
