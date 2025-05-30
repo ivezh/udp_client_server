@@ -71,7 +71,7 @@
 ### Запуск:  
 ```bash
 # 1. Генерация CSV с тестовыми данными в папке с сервером
-python ./test gegenerate_csv_vlan_mac.py
+python ./test generate_csv_vlan_mac.py
 
 # 2. Сервер читает файл vlan_data.csv на старте и выводит номер порта
 ./server
