@@ -1,31 +1,27 @@
 CC = gcc
-AR = ar rcs
 RM = rm -rf
-CFLAGS = -L.
+CFLAGS = -g -Iinclude
+
+SRC_DIR = src
+INC_DIR = include
 
 TARGET = server
-LIBRARY = lib$(TARGET).a
-HEADERS = $(wildcard *.h)
-SOURCES = $(filter-out server.c, $(wildcard *.c))
+
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(TARGET)
 
-$(TARGET): server.c $(LIBRARY)
-	@echo "COMPILE BINARY"
-	@$(CC) server.c -g -o $(TARGET) $(CFLAGS) -l$(TARGET)
+$(TARGET): $(OBJECTS)
+	@echo "COMPILE $@"
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
-$(LIBRARY): $(OBJECTS)
-	@echo "LINK OBJECTS"
-	@$(AR) $(LIBRARY) $(OBJECTS)
+$(OBJECTS): %.o: %.c
+	@echo "COMPILE $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJECTS): $(SOURCES) $(HEADERS)
-	@echo "COMPILE OBJECTS"
-	@$(CC) -c $(SOURCES)
-  
 clean:
-	@echo "DELETE *.o, *.a"
-	@$(RM) *.o
-	@$(RM) *.a
+	@echo "CLEANING UP"
+	@$(RM) $(SRC_DIR)/*.o $(TARGET)
 
-.PHONY: clean
+.PHONY: all clean

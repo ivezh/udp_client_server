@@ -1,17 +1,27 @@
 CC = gcc
 RM = rm -rf
+CFLAGS = -Wall -Wextra -g -Iinclude
+
+SRC_DIR = src
+INC_DIR = include
 
 TARGET = client
 
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(SOURCES:.c=.o)
+
 all: $(TARGET)
 
-$(TARGET): client.c 
-	@echo "COMPILE BINARY"
-	@$(CC) client.c -g -o $(TARGET)
+$(TARGET): $(OBJECTS)
+	@echo "COMPILE $@"
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $@
+
+$(OBJECTS): %.o: %.c
+	@echo "COMPILE $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "DELETE *.o, *.a"
-	@$(RM) *.o
-	@$(RM) *.a
+	@echo "CLEANING UP"
+	@$(RM) $(SRC_DIR)/*.o $(TARGET)
 
-.PHONY: clean
+.PHONY: all clean
