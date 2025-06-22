@@ -34,6 +34,7 @@ inline int send_resp(int sock_fd,
 					 struct sockaddr *client_addr,
 					 VlanMacEntry **vlan_mac_sorted){
 	char buff[LINE_LEN];
+	memset(buff, 0, sizeof(buff));
 	char payload[LINE_LEN * pairs_per_pack];
 	memset(payload, 0, sizeof(payload));
 

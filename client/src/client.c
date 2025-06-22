@@ -43,6 +43,7 @@ int main(int argc, char *argv[]){
 	uint32_t rec_pairs_num = 0;
 	char buff[MAX_USER_INPUT] = {0};
 	char recv_buff[PACK_SIZE * LINE_LEN];
+	memset(recv_buff, 0, sizeof(recv_buff));
 	socklen_t serv_len = sizeof(serv_addr);
 	
 	set_input_mode(); //set terminal to non-canonical mode
