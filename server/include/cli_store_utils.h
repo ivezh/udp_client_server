@@ -16,7 +16,7 @@ typedef struct {
 size_t get_hash(const struct sockaddr_in* addr, size_t hash_table_size);
 
 //find free slot in storage for new client
-int get_free_slot(int * freelist, int free_list_size);
+int get_free_slot(time_t * freelist, int free_list_size);
 
 //delete one client
 void del_cli(size_t hash,
@@ -26,9 +26,9 @@ void del_cli(size_t hash,
 			 Client **hash_table);
 
 void del_first_cli(Client *cli_pool, 
-						  time_t *freelist, 
-						  Client **hash_table,
-						  size_t hash_table_size);
+				   time_t *freelist, 
+				   Client **hash_table,
+				   size_t hash_table_size);
 
 //TODO: uncomment when implemented			 
 //clean storage from old clients

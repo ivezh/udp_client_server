@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "../include/sort_csv.h"
 #include "../include/serv_utils.h"
 #include "../include/cli_store_utils.h"

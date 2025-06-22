@@ -80,7 +80,6 @@ int main(int argc, char *argv[]){
 			}
 		}
 		if(inp_ret == -1){
-			perror("[ERROR] error read input:");
 			continue;
 		}
 	}

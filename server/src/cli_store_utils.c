@@ -6,13 +6,13 @@
 #include <sys/socket.h>     
 #include "../include/cli_store_utils.h"
 
-inline size_t get_hash(const struct sockaddr_in* addr, size_t hash_table_size) {
+inline size_t get_hash(const struct sockaddr_in *addr, size_t hash_table_size) {
     uint64_t key = ((uint64_t)ntohl(addr->sin_addr.s_addr) << 16) | ntohs(addr->sin_port);
     XXH64_hash_t hash = XXH3_64bits(&key, sizeof(key));
     return (size_t)(hash & (hash_table_size - 1));
 }
 
-inline int get_free_slot(int * freelist, int free_list_size){
+inline int get_free_slot(time_t *freelist, int free_list_size){
 	for(int i = 0; i < free_list_size; i++){
 		if(freelist[i] == 0){
 			return i;
@@ -35,9 +35,9 @@ inline void del_cli(size_t hash,
 
 //delete the very first client in cli pool
 void del_first_cli(Client *cli_pool, 
-						  time_t *freelist, 
-						  Client **hash_table,
-						  size_t hash_table_size){
+				   time_t *freelist, 
+				   Client **hash_table,
+				   size_t hash_table_size){
 	Client *cli = &cli_pool[0];
 	size_t hash = get_hash(&cli->client_addr, hash_table_size);
 	hash_table[hash] = 0;
