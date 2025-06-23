@@ -57,6 +57,8 @@ int main(int argc, char *argv[]){
 	int sock_fd = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sock_fd == -1){
 		perror("[ERROR] socket:");
+		free(vlan_mac_storage);
+		free(vlan_mac_sorted);
 		exit(EXIT_FAILURE);
 	}
 
@@ -75,6 +77,8 @@ int main(int argc, char *argv[]){
 	
 	if(bind(sock_fd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0){
 		perror("[ERROR] bind:");
+		free(vlan_mac_storage);
+		free(vlan_mac_sorted);
 		close(sock_fd);
 		exit(EXIT_FAILURE);
 	}
@@ -84,6 +88,8 @@ int main(int argc, char *argv[]){
 	socklen_t sock_len = sizeof(sock_self);
 	if (getsockname(sock_fd,(struct sockaddr *) &sock_self, &sock_len)< 0){
 		perror("[ERROR] getsockname:");
+		free(vlan_mac_storage);
+		free(vlan_mac_sorted);
 		close(sock_fd);
 		exit(EXIT_FAILURE);
 	}
@@ -95,6 +101,8 @@ int main(int argc, char *argv[]){
 	int epoll_fd = epoll_create1(0);
 	if (epoll_fd == -1){
 		perror("[ERROR] create epoll:");
+		free(vlan_mac_storage);
+		free(vlan_mac_sorted);
 		close(sock_fd);
 		exit(EXIT_FAILURE);
 	}
@@ -105,6 +113,8 @@ int main(int argc, char *argv[]){
 
 	if(epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sock_fd, &ev) < 0){
 		perror("[ERROR] add socket fd to epoll:");
+		free(vlan_mac_storage);
+		free(vlan_mac_sorted);
 		close(sock_fd);
 		exit(EXIT_FAILURE);
 	}
@@ -129,6 +139,8 @@ int main(int argc, char *argv[]){
 		int epoll_ret = epoll_wait(epoll_fd, &event_buff, 1, -1);
 		if (epoll_ret < 0 && errno != EAGAIN){
 			perror("[ERROR] epoll wait:");
+			free(vlan_mac_storage);
+			free(vlan_mac_sorted);
 			close(sock_fd);
 			exit(EXIT_FAILURE);
 		}
